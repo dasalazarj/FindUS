@@ -1,5 +1,6 @@
 package cl.telematica.findus;
 
+
 import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
@@ -13,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+
 public class MainFragment extends Fragment {
 	
 	private static final String TAG = "MainFragment";
@@ -25,15 +27,18 @@ public class MainFragment extends Fragment {
 
 	    LoginButton authButton = (LoginButton) view.findViewById(R.id.authButton);
 	    authButton.setFragment(this);
-	    
+	   	  	    
 	    return view; 
 	}
 	
 	private void onSessionStateChange(Session session, SessionState state, Exception exception) {
 	    if (state.isOpened()) {
 	        Log.i(TAG, "Logged in...");
+	        Intent home = new Intent(getActivity(), HomeActivity.class);
+	    	startActivity(home);
 	    } else if (state.isClosed()) {
 	        Log.i(TAG, "Logged out...");
+	        //LOGOUT
 	    }
 	    
 	}
@@ -52,12 +57,12 @@ public class MainFragment extends Fragment {
 	    super.onCreate(savedInstanceState);
 	    uiHelper = new UiLifecycleHelper(getActivity(), callback);
 	    uiHelper.onCreate(savedInstanceState);
+	    
 	}
 	
 	@Override
 	public void onResume() {
 	    super.onResume();
-	    uiHelper.onResume();
 	    
 	 // For scenarios where the main activity is launched and user
 	    // session is not null, the session state change notification
@@ -94,4 +99,5 @@ public class MainFragment extends Fragment {
 	    super.onSaveInstanceState(outState);
 	    uiHelper.onSaveInstanceState(outState);
 	}
+	
 }
